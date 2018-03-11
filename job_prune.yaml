@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: prune
+  namespace: gitea
 spec:
   parallelism: 1
   completions: 1
@@ -10,6 +11,7 @@ spec:
   template:
     metadata:
       name: pruner
+      namespace: gitea
     spec:
       containers:
       - name: pruner
