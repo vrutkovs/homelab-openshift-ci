@@ -10,7 +10,9 @@ spec:
   template:
     metadata:
       name: import-images
-        spec:
+      labels:
+        generated-by: seed-job
+    spec:
       containers:
       - name: import-images
         image: docker-registry.default.svc:5000/gitea/drone-base
