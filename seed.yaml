@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: seed-job
+spec:
+  parallelism: 1
+  completions: 1
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  template:
+    metadata:
+      name: seed
+    spec:
+      containers:
+      - name: seed
+        image: docker-registry.default.svc:5000/gitea/drone-base
+        command:
+          - make
+          - seed
+      restartPolicy: OnFailure
+      serviceAccount: drone-agent
+      serviceAccountName: drone-agent
+      terminationGracePeriodSeconds: 1

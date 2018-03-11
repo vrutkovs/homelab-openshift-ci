@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prune
+spec:
+  parallelism: 1
+  completions: 1
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  template:
+    metadata:
+      name: pruner
+    spec:
+      containers:
+      - name: pruner
+        image: docker-registry.default.svc:5000/gitea/drone-base
+        command:
+          - make
+          - prune
+      restartPolicy: OnFailure
+      serviceAccount: drone-agent
+      serviceAccountName: drone-agent
+      terminationGracePeriodSeconds: 1
