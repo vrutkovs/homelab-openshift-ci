@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: import-images
+  namespace: gitea
+spec:
+  parallelism: 1
+  completions: 1
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  template:
+    metadata:
+      name: import-images
+      namespace: gitea
+    spec:
+      containers:
+      - name: import-images
+        image: docker-registry.default.svc:5000/gitea/drone-base
+        command:
+          - make
+          - import-images
+      restartPolicy: OnFailure
+      serviceAccount: drone-agent
+      serviceAccountName: drone-agent
+      terminationGracePeriodSeconds: 1
