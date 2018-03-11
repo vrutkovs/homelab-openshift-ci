@@ -1,4 +1,4 @@
-TOKEN := $(shell cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+#TOKEN := $(shell cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 JOBS := $(shell find . -name 'job_*.yaml')
 NAMESPACE := 'gitea'
 
