@@ -5,7 +5,7 @@ metadata:
   labels:
     generated-by: seed-job
 spec:
-  schedule: '0 H/8 * * *'
+  schedule: '0 */8 * * *'
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 1
   jobTemplate:
