@@ -5,6 +5,7 @@ RUN yum update -y && \
     yum install -y origin-clients make && \
     yum clean all
 
-ADD Makefile /
+ADD . /jobs
+WORKDIR /jobs
 
 CMD ["make"]
