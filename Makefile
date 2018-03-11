@@ -1,10 +1,12 @@
 TOKEN := $(shell cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 JOBS := $(shell find . -name 'job_*.yaml')
+NAMESPACE := 'gitea'
 
 login:
 	oc login kubernetes.default.svc --token ${TOKEN} --insecure-skip-tls-verify=true
 
 seed: login
+	oc project ${NAMESPACE}
 	oc delete jobs --all
 	for f in ${JOBS}; do oc create -f $$f; done
 

@@ -2,7 +2,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: prune
-  namespace: gitea
 spec:
   parallelism: 1
   completions: 1
@@ -11,8 +10,7 @@ spec:
   template:
     metadata:
       name: pruner
-      namespace: gitea
-    spec:
+        spec:
       containers:
       - name: pruner
         image: docker-registry.default.svc:5000/gitea/drone-base
