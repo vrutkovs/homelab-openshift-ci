@@ -8,7 +8,7 @@ login:
 seed: login
 	oc project ${NAMESPACE}
 	oc delete jobs -l generated-by=seed-job
-	oc delete scheduledjobs -l generated-by=seed-job
+	oc delete cronjobs -l generated-by=seed-job
 	for f in ${JOBS}; do oc create -f $$f; done
 
 prune: login
