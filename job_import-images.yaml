@@ -1,7 +1,9 @@
 apiVersion: batch/v2alpha1
-kind: Job
+kind: CronJob
 metadata:
   name: import-images
+  labels:
+    generated-by: seed-job
 spec:
   schedule: '0 */8 * * *'
   successfulJobsHistoryLimit: 2
