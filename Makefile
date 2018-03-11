@@ -1,13 +1,12 @@
 TOKEN := $(shell cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+JOBS := $(shell find . -name 'job_*.yaml')
 
 login:
 	oc login kubernetes.default.svc --token ${TOKEN} --insecure-skip-tls-verify=true
 
 seed: login
 	oc delete jobs --all
-	for f in job_*.yaml ; do \
-    oc create -f ${f} ; \
-  done
+	for f in ${JOBS}; do oc create -f $$f; done
 
 prune: login
 	oc adm prune builds --confirm
