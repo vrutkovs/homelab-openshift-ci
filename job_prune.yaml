@@ -1,27 +1,30 @@
 apiVersion: batch/v1
-kind: Job
+kind: CronJob
 metadata:
   name: prune
   labels:
     generated-by: seed-job
 spec:
-  parallelism: 1
-  completions: 1
+  schedule: '0 H/8 * * *'
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 1
-  template:
-    metadata:
-      name: pruner
-      labels:
-        generated-by: seed-job
+  jobTemplate:
     spec:
-      containers:
-      - name: pruner
-        image: docker-registry.default.svc:5000/gitea/drone-base
-        command:
-          - make
-          - prune
-      restartPolicy: OnFailure
-      serviceAccount: drone-agent
-      serviceAccountName: drone-agent
-      terminationGracePeriodSeconds: 1
+      parallelism: 1
+      completions: 1
+      template:
+        metadata:
+          name: pruner
+          labels:
+            generated-by: seed-job
+        spec:
+          containers:
+          - name: pruner
+            image: docker-registry.default.svc:5000/gitea/drone-base
+            command:
+              - make
+              - prune
+          restartPolicy: OnFailure
+          serviceAccount: drone-agent
+          serviceAccountName: drone-agent
+          terminationGracePeriodSeconds: 1
