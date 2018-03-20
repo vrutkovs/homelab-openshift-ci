@@ -25,4 +25,5 @@ import-images: login
 	oc import-image jackett -n transmission
 	oc import-image gitea -n gitea
 	oc import-image duplicati -n duplicati
-	oc import-image miniflux -n miniflux
+	oc import-image wallabag -n wallabag
+	oc import-image tt-rss -n ttrss
