@@ -6,7 +6,7 @@ metadata:
     generated-by: seed-job
 spec:
   concurrencyPolicy: Forbid
-  schedule: '0 4 * * *'
+  schedule: '0 */4 * * *'
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 1
   jobTemplate:
