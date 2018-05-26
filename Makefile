@@ -1,6 +1,6 @@
 TOKEN := $(shell cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 JOBS := $(shell find . -name 'job_*.yaml')
-NAMESPACE := 'gitea'
+NAMESPACE := 'ci'
 
 login:
 	oc login kubernetes.default.svc --token ${TOKEN} --insecure-skip-tls-verify=true

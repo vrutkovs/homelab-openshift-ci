@@ -21,11 +21,11 @@ spec:
         spec:
           containers:
           - name: import-images
-            image: docker-registry.default.svc:5000/gitea/drone-base
+            image: docker-registry.default.svc:5000/ci/ci-image
             command:
               - make
               - import-images
           restartPolicy: OnFailure
-          serviceAccount: drone-agent
-          serviceAccountName: drone-agent
+          serviceAccount: ci-runner
+          serviceAccountName: ci-runner
           terminationGracePeriodSeconds: 1
