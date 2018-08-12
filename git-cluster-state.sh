@@ -38,7 +38,8 @@ while read -d ' ' p; do
   popd
 done <<< $(oc projects -q)
 
-
+git config --global user.name "Openshift robot"
+git config --global user.email roignac+test@gmail.com
 
 git add -A
 git commit -am "Cluster state on $(date)"
