@@ -13,9 +13,10 @@ for type in "${types[@]}"; do
   mkdir -p globals/$type
   while read -d ' ' obj; do
     if [ ! -z "$obj" ]; then
-      oc export $obj > globals/${obj}.yml
+      oc export $obj > globals/${obj}.yml &
     fi
   done <<< $(oc get $type -o name)
+  wait
 done
 
 # namespaced objects
@@ -30,10 +31,11 @@ while read -d ' ' p; do
   for type in "${types[@]}"; do
     while read -d ' ' obj; do
       if [ ! -z "$obj" ]; then
-        oc export $obj > ${obj/\//-}.yml
+        oc export $obj > ${obj/\//-}.yml &
       fi
     done <<< $(oc get $type -o name)
   done
+  wait
 
   popd
 done <<< $(oc projects -q)
