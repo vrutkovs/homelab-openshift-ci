@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -eux
 set -o pipefail
 cd /tmp
 git clone https://robot:foo@gitea.vrutkovs.eu/vadim/cluster-state.git
