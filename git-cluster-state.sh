@@ -11,9 +11,10 @@ rm -rf ./*
 types=("persistentvolumes" "securitycontextconstraints" "clusterroles" "clusterrolebindings")
 for type in "${types[@]}"; do
   mkdir -p globals/$type
-  while read -d ' ' obj; do
+  mapfile -t objs < <( oc get $type -o name )
+  for obj in "${objs[@]}"; do
     oc export $obj > globals/${obj}.yml &
-  done <<< $(oc get $type -o name)
+  done
   wait
 done
 
@@ -27,9 +28,11 @@ while read -d ' ' p; do
   types=("is" "bc" "dc" "cm" "secret" "cronjob" "route" "svc" "pvc" "role" "rolebinding" "ds" "sa" "sts")
 
   for type in "${types[@]}"; do
-    while read -d ' ' obj; do
+    objs=()
+    mapfile -t objs < <( oc get $type -o name )
+    for obj in "${objs[@]}"; do
       oc export $obj > ${obj/\//-}.yml &
-    done <<< $(oc get $type -o name)
+    done
   done
   wait
 
