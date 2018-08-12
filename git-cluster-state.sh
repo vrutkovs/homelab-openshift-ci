@@ -8,7 +8,7 @@ cd cluster-state
 rm -rf ./*
 
 # Globals
-types=("persistentvolumes" "clusterroles" "clusterrolebindings")
+types=("persistentvolumes" "securitycontextconstraints" "clusterroles" "clusterrolebindings")
 for type in "${types[@]}"; do
   mkdir -p globals/$type
   while read -d ' ' obj; do
