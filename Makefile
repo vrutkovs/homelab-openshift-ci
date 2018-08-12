@@ -26,3 +26,6 @@ import-images: login
 	oc import-image gitea -n gitea
 	oc import-image wallabag -n wallabag
 	oc import-image tt-rss -n ttrss
+
+save-cluster-state: login
+	sh /jobs/git-cluster-state.sh
