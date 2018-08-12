@@ -12,9 +12,7 @@ types=("persistentvolumes" "securitycontextconstraints" "clusterroles" "clusterr
 for type in "${types[@]}"; do
   mkdir -p globals/$type
   while read -d ' ' obj; do
-    if [ ! -z "$obj" ]; then
-      oc export $obj > globals/${obj}.yml &
-    fi
+    oc export $obj > globals/${obj}.yml &
   done <<< $(oc get $type -o name)
   wait
 done
@@ -30,9 +28,7 @@ while read -d ' ' p; do
 
   for type in "${types[@]}"; do
     while read -d ' ' obj; do
-      if [ ! -z "$obj" ]; then
-        oc export $obj > ${obj/\//-}.yml &
-      fi
+      oc export $obj > ${obj/\//-}.yml &
     done <<< $(oc get $type -o name)
   done
   wait
