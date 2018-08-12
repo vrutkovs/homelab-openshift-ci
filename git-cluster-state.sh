@@ -27,9 +27,9 @@ while read -d ' ' p; do
   types=("is" "bc" "dc" "cm" "secret" "cronjob" "route" "svc" "pvc" "role" "rolebinding" "ds" "sa" "sts")
 
   for type in "${types[@]}"; do
-    objs=()
     mapfile -t objs < <( oc get $type -o name )
-    for obj in "${objs[@]}"; do
+    for obj in "${objs[@]:-}"; do
+      [ ! -z $obj ] || continue
       oc export $obj > ${obj/\//-}.yml
     done
   done
