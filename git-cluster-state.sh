@@ -11,7 +11,7 @@ rm -rf ./*
 types=("persistentvolumes" "clusterroles" "clusterrolebindings")
 for type in "${types[@]}"; do
   mkdir -p globals/$type
-  while read obj; do
+  while read -d ' ' obj; do
     if [ ! -z "$obj" ]; then
       oc export $obj > globals/${obj}.yml
     fi
@@ -19,7 +19,7 @@ for type in "${types[@]}"; do
 done
 
 # namespaced objects
-while read p; do
+while read -d ' ' p; do
   mkdir $p
   oc export project $p > project-$p.yml
   pushd $p
@@ -28,7 +28,7 @@ while read p; do
   types=("is" "bc" "dc" "cm" "secret" "cronjob" "route" "svc" "pv" "pvc" "role" "rolebinding" "ds" "sa" "sts")
 
   for type in "${types[@]}"; do
-    while read obj; do
+    while read -d ' ' obj; do
       if [ ! -z "$obj" ]; then
         oc export $obj > ${obj/\//-}.yml
       fi
@@ -37,6 +37,8 @@ while read p; do
 
   popd
 done <<< $(oc projects -q)
+
+
 
 git add -A
 git commit -am "Cluster state on $(date)"
