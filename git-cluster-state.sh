@@ -25,7 +25,7 @@ while read -d ' ' p; do
   pushd $p
   oc project $p > /dev/null
 
-  types=("is" "bc" "dc" "cm" "secret" "cronjob" "route" "svc" "pv" "pvc" "role" "rolebinding" "ds" "sa" "sts")
+  types=("is" "bc" "dc" "cm" "secret" "cronjob" "route" "svc" "pvc" "role" "rolebinding" "ds" "sa" "sts")
 
   for type in "${types[@]}"; do
     while read -d ' ' obj; do
