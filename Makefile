@@ -28,4 +28,4 @@ import-images: login
 	oc import-image tt-rss -n ttrss
 
 save-cluster-state: login
-	sh /jobs/git-cluster-state.sh
+	bash /jobs/git-cluster-state.sh
