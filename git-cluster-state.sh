@@ -13,7 +13,7 @@ for type in "${types[@]}"; do
   mkdir -p globals/$type
   mapfile -t objs < <( oc get $type -o name )
   for obj in "${objs[@]}"; do
-    oc export $obj > globals/${obj}.yml
+    oc export $obj > globals/${obj}.yml || true
   done
 done
 
@@ -30,7 +30,7 @@ while read -d ' ' p; do
     mapfile -t objs < <( oc get $type -o name )
     for obj in "${objs[@]:-}"; do
       [ ! -z $obj ] || continue
-      oc export $obj > ${obj/\//-}.yml
+      oc export $obj > ${obj/\//-}.yml || true
     done
   done
   popd
