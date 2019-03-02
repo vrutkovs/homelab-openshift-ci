@@ -25,7 +25,8 @@ import-images: login
 	oc import-image jackett -n torrents
 	oc import-image gitea -n gitea
 	#oc import-image wallabag -n wallabag
-	#oc import-image tt-rss -n ttrss
+	oc import-image ttrss -n ttrss
+	oc import-image centos -n ci
 
 save-cluster-state: login
 	bash /jobs/git-cluster-state.sh
