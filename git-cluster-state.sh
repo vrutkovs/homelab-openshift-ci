@@ -13,14 +13,14 @@ for type in "${types[@]}"; do
   mkdir -p globals/$type
   mapfile -t objs < <( oc get $type -o name )
   for obj in "${objs[@]}"; do
-    oc export $obj > globals/${obj}.yml || true
+    oc get --export $obj > globals/${obj}.yml || true
   done
 done
 
 # namespaced objects
 while read -d ' ' p; do
   mkdir $p
-  oc export project $p > project-$p.yml
+  oc get --export project $p > project-$p.yml
   pushd $p
   oc project $p > /dev/null
 
@@ -30,7 +30,7 @@ while read -d ' ' p; do
     mapfile -t objs < <( oc get $type -o name )
     for obj in "${objs[@]:-}"; do
       [ ! -z $obj ] || continue
-      oc export $obj > ${obj/\//-}.yml || true
+      oc get --export $obj > ${obj/\//-}.yml || true
     done
   done
   popd
