@@ -21,11 +21,11 @@ prune: login
 import-images: login
 	oc import-image sonarr -n torrents
 	oc import-image lidarr -n torrents
-	oc import-image deluge -n torrents
+	oc import-image transmission -n torrents
 	oc import-image jackett -n torrents
 	oc import-image gitea -n gitea
-	oc import-image wallabag -n wallabag
-	oc import-image tt-rss -n ttrss
+	#oc import-image wallabag -n wallabag
+	#oc import-image tt-rss -n ttrss
 
 save-cluster-state: login
 	bash /jobs/git-cluster-state.sh
