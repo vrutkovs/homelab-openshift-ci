@@ -10,7 +10,7 @@ rm -rf ./*
 # Globals
 types=("persistentvolumes" "securitycontextconstraints" "clusterroles" "clusterrolebindings")
 for type in "${types[@]}"; do
-  mkdir -p globals/$type
+  mkdir -p globals/${type::-1}
   mapfile -t objs < <( oc get $type -o name )
   for obj in "${objs[@]}"; do
     oc get --export $obj -o yaml > globals/${obj}.yml || true
