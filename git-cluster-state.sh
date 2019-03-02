@@ -20,7 +20,7 @@ done
 # namespaced objects
 while read -d ' ' p; do
   mkdir $p
-  oc get --export project $p > project-$p.yml
+  oc export project $p > project-$p.yml
   pushd $p
   oc project $p > /dev/null
 
