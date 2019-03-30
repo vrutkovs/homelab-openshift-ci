@@ -19,14 +19,13 @@ prune: login
 	oc adm prune deployments --orphans --confirm
 
 import-images: login
-	oc import-image sonarr -n torrents
-	oc import-image lidarr -n torrents
-	oc import-image transmission -n torrents
-	oc import-image jackett -n torrents
-	oc import-image gitea -n gitea
-	#oc import-image wallabag -n wallabag
-	oc import-image ttrss -n ttrss
 	oc import-image centos -n ci
+	oc import-image fedora:29 -n torrents
+	oc import-image gitea -n gitea
+	oc import-image jackett -n torrents
+	oc import-image lidarr -n torrents
+	oc import-image sonarr -n torrents
+	oc import-image transmission -n torrents
 
 save-cluster-state: login
 	bash /jobs/git-cluster-state.sh
