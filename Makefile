@@ -30,3 +30,6 @@ import-images: login
 
 save-cluster-state: login
 	bash /jobs/git-cluster-state.sh
+
+trigger-builds: login
+	oc start-build htop -n ci
