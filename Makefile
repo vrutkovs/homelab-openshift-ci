@@ -20,6 +20,7 @@ prune: login
 
 import-images: login
 	oc import-image centos -n ci
+	oc import-image fedora:30 -n ci
 	oc import-image fedora:29 -n torrents
 	oc import-image gitea -n gitea
 	oc import-image jackett -n torrents
