@@ -19,7 +19,7 @@ prune: login
 	oc adm prune deployments --orphans --confirm
 
 import-images: login
-	oc import-image centos -n ci
+	oc import-image centos:7 -n ci
 	oc import-image fedora:30 -n ci
 	oc import-image gitea -n gitea
 	oc import-image jackett -n torrents
