@@ -25,6 +25,13 @@ spec:
             command:
               - make
               - trigger-builds
+            resources:
+              limits:
+                cpu: 200m
+                memory: 512Mi
+              requests:
+                cpu: 200m
+                memory: 512Mi
           restartPolicy: OnFailure
           serviceAccount: ci-runner
           serviceAccountName: ci-runner
