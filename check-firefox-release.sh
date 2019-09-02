@@ -9,7 +9,7 @@ NEW_VERSION=$(cat firefox-download-url | cut -d '/' -f 7)
 echo "new version: ${NEW_VERSION}"
 
 # Update the repo
-git clone git@github.com:vrutkovs/firefox-flatpak.git
+git clone -b binaries git@github.com:vrutkovs/firefox-flatpak.git
 cd firefox-flatpak
 CURRENT_VERSION_STRING=$(cat update-firefox-version | grep CURRENT_VERSION | head -n1)
 echo "current version: ${CURRENT_VERSION_STRING}"
