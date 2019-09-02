@@ -30,5 +30,8 @@ import-images: login
 save-cluster-state: login
 	bash /jobs/git-cluster-state.sh
 
+check-firefox-release: login
+	bash /jobs/check-firefox-release.sh
+
 trigger-builds: login
 	oc start-build htop -n ci
