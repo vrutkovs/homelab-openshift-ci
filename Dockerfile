@@ -1,9 +1,8 @@
-FROM centos:7
+FROM registry.fedoraproject.org/fedora:30
 
-RUN yum update -y && \
-    yum install -y centos-release-openshift-origin && \
-    yum install -y origin-clients make git-core python3-beautifulsoup4 && \
-    yum clean all
+RUN dnf update -y && \
+    dnf install -y origin-clients make git-core python3-beautifulsoup4 && \
+    dnf clean all
 
 ADD . /jobs
 WORKDIR /jobs
