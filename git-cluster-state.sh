@@ -8,7 +8,7 @@ cd cluster-state
 rm -rf ./*
 
 # Globals
-types=("persistentvolumes" "securitycontextconstraints" "clusterroles" "clusterrolebindings")
+types=("pv" "scc" "clusterroles" "clusterrolebindings")
 for type in "${types[@]}"; do
   mkdir -p globals/${type::-1}
   mapfile -t objs < <( oc get $type -o name )
