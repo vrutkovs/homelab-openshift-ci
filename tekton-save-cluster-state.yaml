@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: save-cluster-state
+spec:
+  tasks:
+    - name: save
+      taskRef:
+        name: ci
+      params:
+        - name: TARGET
+          value: save-cluster-state
