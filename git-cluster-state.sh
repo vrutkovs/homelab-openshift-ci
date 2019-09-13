@@ -30,7 +30,7 @@ done
 # namespaced objects
 while read p; do
   mkdir $p
-  oc get namespace $p --export > project-$p.yml
+  oc get namespace $p -o yaml --export > project-$p.yml
   pushd $p
   oc project $p > /dev/null
 
