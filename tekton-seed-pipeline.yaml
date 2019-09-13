@@ -4,17 +4,9 @@ metadata:
   name: seed
 spec:
   tasks:
-    - name: build-ci-image
-      taskRef:
-        name: openshift-client
-      params:
-        - name: ARGS
-          value: start-build ci-image --wait
     - name: seed
       taskRef:
         name: ci
       params:
         - name: TARGET
           value: seed
-      runAfter:
-        - build-ci-image
