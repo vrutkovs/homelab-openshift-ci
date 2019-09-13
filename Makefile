@@ -4,7 +4,7 @@ NAMESPACE := 'ci'
 
 .ONESHELL:
 login:
-	oc login kubernetes.default.svc --token ${TOKEN} --insecure-skip-tls-verify=true
+	oc status >/dev/null || oc login kubernetes.default.svc --token ${TOKEN} --insecure-skip-tls-verify=true
 
 seed: login
 	oc project ${NAMESPACE}
