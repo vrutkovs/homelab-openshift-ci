@@ -8,7 +8,7 @@ cd cluster-state
 rm -rf ./*
 
 # Globals
-types=("pv" "scc" "clusterroles" "clusterrolebindings")
+types=("clusterroles" "clusterrolebindings")
 for type in "${types[@]}"; do
   mkdir -p globals/${type::-1}
   mapfile -t objs < <( oc get $type -o name )
@@ -17,10 +17,20 @@ for type in "${types[@]}"; do
   done
 done
 
+# Globals - singular
+types=("pv" "scc")
+for type in "${types[@]}"; do
+  mkdir -p globals/${type}
+  mapfile -t objs < <( oc get $type -o name )
+  for obj in "${objs[@]}"; do
+    oc get --export $obj -o yaml > globals/${type}/${obj/*\//}.yml || true
+  done
+done
+
 # namespaced objects
-while read -d ' ' p; do
+while read p; do
   mkdir $p
-  oc export project $p > project-$p.yml
+  oc get namespace $p --export > project-$p.yml
   pushd $p
   oc project $p > /dev/null
 
