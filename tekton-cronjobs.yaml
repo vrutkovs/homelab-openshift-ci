@@ -46,7 +46,7 @@ metadata:
     generated-by: seed-job
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 */8 * * *"
+  schedule: "5 */8 * * *"
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -86,7 +86,7 @@ metadata:
     generated-by: seed-job
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 */8 * * *"
+  schedule: "45 */8 * * *"
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -126,7 +126,7 @@ metadata:
     generated-by: seed-job
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 */8 * * *"
+  schedule: "30 */8 * * *"
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 1
   jobTemplate:
