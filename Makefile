@@ -1,5 +1,5 @@
 TOKEN := $(shell cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-JOBS := $(shell find . -name 'job_*.yaml')
+TEKTON := $(shell find . -name 'tekton-*.yaml')
 NAMESPACE := 'ci'
 
 login:
@@ -9,7 +9,7 @@ seed: login
 	oc project ${NAMESPACE}
 	oc delete jobs -l generated-by=seed-job
 	oc delete cronjobs -l generated-by=seed-job
-	for f in ${JOBS}; do oc create -f $$f; done
+	for f in ${TEKTON}; do oc create -f $$f; done
 
 prune: login
 	oc adm prune builds --confirm
