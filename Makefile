@@ -12,7 +12,7 @@ seed: login
 	oc delete cronjobs -l generated-by=seed-job
 	for f in ${TEKTON}; do oc apply -f $$f; done
 
-run-pipeline:
+run-pipeline: login
 	cat pipeline-run.tmpl | envsubst | oc create -f -
 
 prune: login
