@@ -1,0 +1,159 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: import-images
+  labels:
+    generated-by: seed-job
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 */4 * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      parallelism: 1
+      completions: 1
+      template:
+        metadata:
+          name: import-images
+          labels:
+            generated-by: seed-job
+        spec:
+          containers:
+            - name: import-images
+              image: docker-registry.default.svc:5000/ci/ci-image
+              command:
+                - make
+                - run-pipeline
+                - PIPELINE=import-image
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 512Mi
+                requests:
+                  cpu: 200m
+                  memory: 512Mi
+          restartPolicy: Never
+          serviceAccount: ci-runner
+          serviceAccountName: ci-runner
+          terminationGracePeriodSeconds: 1
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: prune
+  labels:
+    generated-by: seed-job
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 */8 * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      parallelism: 1
+      completions: 1
+      template:
+        metadata:
+          name: pruner
+          labels:
+            generated-by: seed-job
+        spec:
+          containers:
+            - name: pruner
+              image: docker-registry.default.svc:5000/ci/ci-image
+              command:
+                - make
+                - run-pipeline
+                - PIPELINE=prune
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 512Mi
+                requests:
+                  cpu: 200m
+                  memory: 512Mi
+          restartPolicy: OnFailure
+          serviceAccount: ci-runner
+          serviceAccountName: ci-runner
+          terminationGracePeriodSeconds: 1
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: save-cluster-state
+  labels:
+    generated-by: seed-job
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 */8 * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      parallelism: 1
+      completions: 1
+      template:
+        metadata:
+          name: saver
+          labels:
+            generated-by: seed-job
+        spec:
+          containers:
+            - name: saver
+              image: docker-registry.default.svc:5000/ci/ci-image
+              command:
+                - make
+                - run-pipeline
+                - PIPELINE=save-cluster-state
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 512Mi
+                requests:
+                  cpu: 200m
+                  memory: 512Mi
+          restartPolicy: OnFailure
+          serviceAccount: ci-runner
+          serviceAccountName: ci-runner
+          terminationGracePeriodSeconds: 1
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: trigger-builds
+  labels:
+    generated-by: seed-job
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 */8 * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      parallelism: 1
+      completions: 1
+      template:
+        metadata:
+          name: pruner
+          labels:
+            generated-by: seed-job
+        spec:
+          containers:
+            - name: pruner
+              image: docker-registry.default.svc:5000/ci/ci-image
+              command:
+                - make
+                - run-pipeline
+                - PIPELINE=builds
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 512Mi
+                requests:
+                  cpu: 200m
+                  memory: 512Mi
+          restartPolicy: OnFailure
+          serviceAccount: ci-runner
+          serviceAccountName: ci-runner
+          terminationGracePeriodSeconds: 1
