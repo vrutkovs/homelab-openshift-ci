@@ -9,7 +9,7 @@ seed: login
 	oc project ${NAMESPACE}
 	oc delete jobs -l generated-by=seed-job
 	oc delete cronjobs -l generated-by=seed-job
-	for f in ${TEKTON}; do oc create -f $$f; done
+	for f in ${TEKTON}; do oc apply -f $$f; done
 
 prune: login
 	oc adm prune builds --confirm
