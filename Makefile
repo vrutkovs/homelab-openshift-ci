@@ -2,6 +2,7 @@ TOKEN := $(shell cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 TEKTON := $(shell find . -name 'tekton-*.yaml')
 NAMESPACE := 'ci'
 
+.ONESHELL:
 login:
 	oc login kubernetes.default.svc --token ${TOKEN} --insecure-skip-tls-verify=true
 
@@ -10,6 +11,9 @@ seed: login
 	oc delete jobs -l generated-by=seed-job
 	oc delete cronjobs -l generated-by=seed-job
 	for f in ${TEKTON}; do oc apply -f $$f; done
+
+run-pipeline:
+	cat pipeline-run.tmpl | envsubst | oc create -f -
 
 prune: login
 	oc adm prune builds --confirm

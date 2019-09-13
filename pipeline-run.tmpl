@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  labels:
+    tekton.dev/pipeline: ${PIPELINE}
+  generateName: ${PIPELINE}-
+  namespace: ci
+spec:
+  pipelineRef:
+    name: ${PIPELINE}
+  podTemplate: {}
+  resources: []
+  serviceAccount: 'ci-runner'
