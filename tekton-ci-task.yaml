@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: ci
+spec:
+  inputs:
+    params:
+      - name: TARGET
+        description: CI target to run
+        default: help
+  steps:
+    - name: ci
+      image: docker-registry.default.svc:5000/ci/ci-image
+      command: ["make"]
+      args:
+        - "${inputs.params.TARGET}"
