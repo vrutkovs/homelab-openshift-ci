@@ -12,6 +12,7 @@ spec:
   steps:
     - name: ci
       image: docker-registry.default.svc:5000/ci/ci-image
-      command: ["make"]
+      command: ["sh"]
       args:
-        - "${inputs.params.TARGET}"
+        - "-c"
+        - "cd /jobs && make ${inputs.params.TARGET}"
