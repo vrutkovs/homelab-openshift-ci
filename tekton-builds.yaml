@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: builds
+spec:
+  tasks:
+    - name: builds
+      taskRef:
+        name: ci
+      params:
+        - name: TARGET
+          value: trigger-builds
